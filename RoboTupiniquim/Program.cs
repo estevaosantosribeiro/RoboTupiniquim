@@ -5,11 +5,25 @@
         static void Main(string[] args)
         {
             int tamanhoGrid = 5;
-            int posicaoX = 1;
-            int posicaoY = 1;
-            char direcao = 'N';
-            string comandos = "MMMD";
-            char[] arrayComandos = comandos.ToCharArray();
+            int posicaoX, posicaoY;
+            char direcao;
+            string comandos;
+            char[] arrayComandos;
+            string[] arrayCoordenadas;
+
+            // entradas
+            Console.Write("Digite a posição e direção inicial: ");
+            string coordenadasIniciais = Console.ReadLine()!;
+            arrayCoordenadas = coordenadasIniciais.Split(" ");
+
+            posicaoX = Convert.ToInt32(arrayCoordenadas[0]);
+            posicaoY = Convert.ToInt32(arrayCoordenadas[1]);
+            direcao = Convert.ToChar(arrayCoordenadas[2]);
+
+            Console.Write("Digite a sequência de movimentos: ");
+            comandos = Console.ReadLine()!;
+
+            arrayComandos = comandos.ToCharArray();
 
             Console.WriteLine($"posição inicial: {posicaoX} {posicaoY} {direcao}");
 
@@ -17,7 +31,7 @@
             {
                 char comando = arrayComandos[elemento];
 
-                // rotação do robô
+                // movimentação do robô
                 switch (comando)
                 {
                     case 'D':
@@ -26,30 +40,49 @@
                     case 'E':
                         direcao = MudarDirecaoEsquerda(direcao);
                         break;
-                }
-
-                // movimentação para frente
-                if (comando == 'M' && direcao == 'N')
-                {
-                    posicaoY += 1;
-                }
-                else if (comando == 'M' && direcao == 'L')
-                {
-                    posicaoX += 1;
-                }
-                else if (comando == 'M' && direcao == 'S')
-                {
-                    posicaoY -= 1;
-                }
-                else if (comando == 'M' && direcao == 'O')
-                {
-                    posicaoX -= 1;
+                    case 'M':
+                        if (direcao == 'N' || direcao == 'S')
+                        {
+                            posicaoY = MovimentarVerticalmente(posicaoY, direcao);
+                        }
+                        else if (direcao == 'L' || direcao == 'O')
+                        {
+                            posicaoX = MovimentarHorizontalmente(posicaoX, direcao);
+                        }
+                        break;
                 }
             }
 
             Console.WriteLine($"posição final: {posicaoX} {posicaoY} {direcao}");
 
             Console.ReadLine();
+        }
+
+        static int MovimentarVerticalmente(int posicaoY, int direcao)
+        {
+            switch (direcao){
+                case 'N':
+                    posicaoY += 1;
+                    break;
+                case 'S':
+                    posicaoY += 1;
+                    break;
+            }
+            return posicaoY;
+        }
+
+        static int MovimentarHorizontalmente(int posicaoX, int direcao)
+        {
+            switch (direcao)
+            {
+                case 'L':
+                    posicaoX += 1;
+                    break;
+                case 'O':
+                    posicaoX -= 1;
+                    break;
+            }
+            return posicaoX;
         }
 
         static char MudarDirecaoDireita(char direcao)
