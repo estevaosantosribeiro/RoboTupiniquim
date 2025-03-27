@@ -20,6 +20,15 @@
                 if(comando == 'M' && direcao == 'N')
                 {
                     posicaoY += 1;
+                } else if (comando == 'M' && direcao == 'L')
+                {
+                    posicaoX += 1;
+                } else if (comando == 'M' && direcao == 'S')
+                {
+                    posicaoY -= 1;
+                } else if (comando == 'M' && direcao == 'O')
+                {
+                    posicaoX -= 1;
                 }
             }
 
