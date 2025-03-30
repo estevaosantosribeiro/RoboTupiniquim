@@ -15,20 +15,39 @@
 
         static void MovimentarRobo()
         {
-            char[] movimentos;
-            string[] coordenadasIniciais;
+            bool posicaoValida = false;
 
-            coordenadasIniciais = ObterCoordenadas();
+            while (!posicaoValida)
+            {
+                string[] coordenadasIniciais = ObterCoordenadas();
 
-            RoboTupiniquim.DefinirPosicaoInicial(coordenadasIniciais);
+                RoboTupiniquim.DefinirPosicaoInicial(coordenadasIniciais);
 
-            movimentos = ObterMovimentos();
+                char[] movimentos = ObterMovimentos();
+
+                RoboTupiniquim.Movimentar(movimentos);
+
+                posicaoValida = ValidarPosicao();
+
+                if (!posicaoValida)
+                {
+                    Console.WriteLine("Erro, O robô colidiu com a borda!\nTente novamente.\n");
+                }
+            }
 
             ExibirPosicaoInicial(RoboTupiniquim.posicaoX, RoboTupiniquim.posicaoY, RoboTupiniquim.direcao);
 
-            RoboTupiniquim.Movimentar(movimentos);
-
             ExibirPosicaoFinal(RoboTupiniquim.posicaoX, RoboTupiniquim.posicaoY, RoboTupiniquim.direcao);
+        }
+
+        static bool ValidarPosicao()
+        {
+            if(RoboTupiniquim.posicaoX < 0 || RoboTupiniquim.posicaoY < 0)
+            {
+                return false;
+            }
+            
+            return true;
         }
 
         static string[] ObterCoordenadas()
