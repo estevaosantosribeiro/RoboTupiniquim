@@ -4,53 +4,21 @@
     {
         static void Main(string[] args)
         {
-            int tamanhoGrid = 5;
-            int posicaoX, posicaoY;
-            char direcao;
-            string comandos;
-            char[] arrayComandos;
+            //int tamanhoGrid = 5;
+            char[] movimentos;
             string[] coordenadasIniciais;
 
             coordenadasIniciais = ObterCoordenadas();
 
-            posicaoX = ObterPosicaoX(coordenadasIniciais);
-            posicaoY = ObterPosicaoY(coordenadasIniciais);
-            direcao = ObterDirecao(coordenadasIniciais);
+            RoboTupiniquim.DefinirPosicaoInicial(coordenadasIniciais);
 
-            Console.Write("Digite a sequência de movimentos: ");
-            comandos = Console.ReadLine()!;
+            movimentos = ObterMovimentos();
 
-            arrayComandos = comandos.ToCharArray();
+            ExibirPosicaoInicial(RoboTupiniquim.posicaoX, RoboTupiniquim.posicaoY, RoboTupiniquim.direcao);
 
-            Console.WriteLine($"posição inicial: {posicaoX} {posicaoY} {direcao}");
+            RoboTupiniquim.Movimentar(movimentos);
 
-            for (int elemento = 0; elemento < arrayComandos.Length; elemento++)
-            {
-                char comando = arrayComandos[elemento];
-
-                // movimentação do robô
-                switch (comando)
-                {
-                    case 'D':
-                        direcao = MudarDirecaoDireita(direcao);
-                        break;
-                    case 'E':
-                        direcao = MudarDirecaoEsquerda(direcao);
-                        break;
-                    case 'M':
-                        if (direcao == 'N' || direcao == 'S')
-                        {
-                            posicaoY = MovimentarVerticalmente(posicaoY, direcao);
-                        }
-                        else if (direcao == 'L' || direcao == 'O')
-                        {
-                            posicaoX = MovimentarHorizontalmente(posicaoX, direcao);
-                        }
-                        break;
-                }
-            }
-
-            Console.WriteLine($"posição final: {posicaoX} {posicaoY} {direcao}");
+            ExibirPosicaoFinal(RoboTupiniquim.posicaoX, RoboTupiniquim.posicaoY, RoboTupiniquim.direcao);
 
             Console.ReadLine();
         }
@@ -63,89 +31,21 @@
             return coordenadas;
         }
 
-        static int ObterPosicaoX(string[] coordenadas)
+        static char[] ObterMovimentos()
         {
-            int posicaoX = Convert.ToInt32(coordenadas[0]);
-            return posicaoX;
+            Console.Write("Digite a sequência de movimentos: ");
+            char[] movimentos = Console.ReadLine()!.ToCharArray();
+            return movimentos;
         }
 
-        static int ObterPosicaoY(string[] coordenadas)
+        static void ExibirPosicaoInicial(int posicaoX, int posicaoY, char direcao)
         {
-            int posicaoY = Convert.ToInt32(coordenadas[1]);
-            return posicaoY;
+            Console.WriteLine($"posição inicial: {posicaoX} {posicaoY} {direcao}");
         }
 
-        static char ObterDirecao(string[] coordenadas)
+        static void ExibirPosicaoFinal(int posicaoX, int posicaoY, char direcao)
         {
-            char direcao = Convert.ToChar(coordenadas[2]);
-            return direcao;
-        }
-
-        static int MovimentarVerticalmente(int posicaoY, int direcao)
-        {
-            switch (direcao){
-                case 'N':
-                    posicaoY += 1;
-                    break;
-                case 'S':
-                    posicaoY -= 1;
-                    break;
-            }
-            return posicaoY;
-        }
-
-        static int MovimentarHorizontalmente(int posicaoX, int direcao)
-        {
-            switch (direcao)
-            {
-                case 'L':
-                    posicaoX += 1;
-                    break;
-                case 'O':
-                    posicaoX -= 1;
-                    break;
-            }
-            return posicaoX;
-        }
-
-        static char MudarDirecaoDireita(char direcao)
-        {
-            switch (direcao)
-            {
-                case 'N':
-                    direcao = 'L';
-                    break;
-                case 'L':
-                    direcao = 'S';
-                    break;
-                case 'S':
-                    direcao = 'O';
-                    break;
-                case 'O':
-                    direcao = 'N';
-                    break;
-            }
-            return direcao;
-        }
-
-        static char MudarDirecaoEsquerda(char direcao)
-        {
-            switch (direcao)
-            {
-                case 'N':
-                    direcao = 'O';
-                    break;
-                case 'L':
-                    direcao = 'N';
-                    break;
-                case 'S':
-                    direcao = 'L';
-                    break;
-                case 'O':
-                    direcao = 'S';
-                    break;
-            }
-            return direcao;
+            Console.WriteLine($"posição final: {posicaoX} {posicaoY} {direcao}");
         }
     }
 }
