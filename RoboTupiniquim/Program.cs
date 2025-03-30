@@ -65,7 +65,7 @@
                     posicaoY += 1;
                     break;
                 case 'S':
-                    posicaoY += 1;
+                    posicaoY -= 1;
                     break;
             }
             return posicaoY;
