@@ -9,16 +9,13 @@
             char direcao;
             string comandos;
             char[] arrayComandos;
-            string[] arrayCoordenadas;
+            string[] coordenadasIniciais;
 
-            // entradas
-            Console.Write("Digite a posição e direção inicial: ");
-            string coordenadasIniciais = Console.ReadLine()!;
-            arrayCoordenadas = coordenadasIniciais.Split(" ");
+            coordenadasIniciais = ObterCoordenadas();
 
-            posicaoX = Convert.ToInt32(arrayCoordenadas[0]);
-            posicaoY = Convert.ToInt32(arrayCoordenadas[1]);
-            direcao = Convert.ToChar(arrayCoordenadas[2]);
+            posicaoX = ObterPosicaoX(coordenadasIniciais);
+            posicaoY = ObterPosicaoY(coordenadasIniciais);
+            direcao = ObterDirecao(coordenadasIniciais);
 
             Console.Write("Digite a sequência de movimentos: ");
             comandos = Console.ReadLine()!;
@@ -56,6 +53,32 @@
             Console.WriteLine($"posição final: {posicaoX} {posicaoY} {direcao}");
 
             Console.ReadLine();
+        }
+
+        static string[] ObterCoordenadas()
+        {
+            Console.Write("Digite a posição e direção inicial: ");
+            string coordenadasIniciais = Console.ReadLine()!;
+            string[] coordenadas = coordenadasIniciais.Split(" ");
+            return coordenadas;
+        }
+
+        static int ObterPosicaoX(string[] coordenadas)
+        {
+            int posicaoX = Convert.ToInt32(coordenadas[0]);
+            return posicaoX;
+        }
+
+        static int ObterPosicaoY(string[] coordenadas)
+        {
+            int posicaoY = Convert.ToInt32(coordenadas[1]);
+            return posicaoY;
+        }
+
+        static char ObterDirecao(string[] coordenadas)
+        {
+            char direcao = Convert.ToChar(coordenadas[2]);
+            return direcao;
         }
 
         static int MovimentarVerticalmente(int posicaoY, int direcao)
