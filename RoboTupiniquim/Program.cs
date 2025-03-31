@@ -4,13 +4,32 @@
     {
         static void Main(string[] args)
         {
-            //int tamanhoGrid = 5;
+            DefinirArea();
+            GuiarRobos();
+            while (DesejaGuiarNovamente())
+            {
+                GuiarRobos();
+            }
+
+            Console.ReadLine();
+        }
+
+        static void DefinirArea()
+        {
+            Console.Write("Digite o tamanho da área em que os robôs se movimentarão: ");
+            string areaInformada = Console.ReadLine()!;
+            string[] area = areaInformada.Split(" ");
+            int areaX = Convert.ToInt32(area[0]);
+            int areaY = Convert.ToInt32(area[1]);
+            RoboTupiniquim.DefinirArea(areaX, areaY);
+        }
+
+        static void GuiarRobos()
+        {
             Console.WriteLine("Movimente o primeiro robô!\n");
             MovimentarRobo();
             Console.WriteLine("\nMovimente o segundo robô!\n");
             MovimentarRobo();
-
-            Console.ReadLine();
         }
 
         static void MovimentarRobo()
@@ -23,6 +42,10 @@
 
                 RoboTupiniquim.DefinirPosicaoInicial(coordenadasIniciais);
 
+                int posicaoInicialX = RoboTupiniquim.posicaoX;
+                int posicaoInicialY = RoboTupiniquim.posicaoY;
+                char direcaoInicial = RoboTupiniquim.direcao;
+
                 char[] movimentos = ObterMovimentos();
 
                 RoboTupiniquim.Movimentar(movimentos);
@@ -33,27 +56,42 @@
                 {
                     Console.WriteLine("Erro, O robô colidiu com a borda!\nTente novamente.\n");
                 }
+                else
+                {
+                    ExibirPosicaoInicial(posicaoInicialX, posicaoInicialY, direcaoInicial);
+                    ExibirPosicaoFinal(RoboTupiniquim.posicaoX, RoboTupiniquim.posicaoY, RoboTupiniquim.direcao);
+                }
             }
+        }
 
-            ExibirPosicaoInicial(RoboTupiniquim.posicaoX, RoboTupiniquim.posicaoY, RoboTupiniquim.direcao);
-
-            ExibirPosicaoFinal(RoboTupiniquim.posicaoX, RoboTupiniquim.posicaoY, RoboTupiniquim.direcao);
+        static bool DesejaGuiarNovamente()
+        {
+            Console.Write("Deseja mover os robôs novamente? (S/N) ");
+            char resposta = Convert.ToChar(Console.ReadLine()!.ToUpper());
+            if (resposta != 'S')
+            {
+                return false;
+            }
+            return true;
         }
 
         static bool ValidarPosicao()
         {
-            if(RoboTupiniquim.posicaoX < 0 || RoboTupiniquim.posicaoY < 0)
+            if (RoboTupiniquim.posicaoX < 0 ||
+                RoboTupiniquim.posicaoY < 0 ||
+                RoboTupiniquim.posicaoY > RoboTupiniquim.areaY ||
+                RoboTupiniquim.posicaoX > RoboTupiniquim.areaX)
             {
                 return false;
             }
-            
+
             return true;
         }
 
         static string[] ObterCoordenadas()
         {
             Console.Write("Digite a posição e direção inicial do robô: ");
-            string coordenadasIniciais = Console.ReadLine()!;
+            string coordenadasIniciais = Console.ReadLine()!.ToUpper();
             string[] coordenadas = coordenadasIniciais.Split(" ");
             return coordenadas;
         }
@@ -61,7 +99,7 @@
         static char[] ObterMovimentos()
         {
             Console.Write("Digite a sequência de movimentos: ");
-            char[] movimentos = Console.ReadLine()!.ToCharArray();
+            char[] movimentos = Console.ReadLine()!.ToUpper().ToCharArray();
             return movimentos;
         }
 

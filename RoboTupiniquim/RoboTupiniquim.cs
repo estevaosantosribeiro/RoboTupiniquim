@@ -5,6 +5,14 @@
         public static int posicaoX;
         public static int posicaoY;
         public static char direcao;
+        public static int areaX;
+        public static int areaY;
+
+        public static void DefinirArea(int areaX, int areaY)
+        {
+            RoboTupiniquim.areaX = areaX;
+            RoboTupiniquim.areaY = areaY;
+        }
 
         public static void DefinirPosicaoInicial(string[] coordenadasIniciais)
         {
