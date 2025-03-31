@@ -55,7 +55,7 @@
 
                 if (!posicaoValida)
                 {
-                    Console.WriteLine("Erro, O robô colidiu com a borda!\n\nTente novamente.\n");
+                    Console.WriteLine("Erro, o robô colidiu com a borda!\n\nTente novamente.\n");
                 }
                 else
                 {
