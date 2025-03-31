@@ -18,6 +18,7 @@
         {
             Console.Write("Digite o tamanho da área em que os robôs se movimentarão: ");
             string areaInformada = Console.ReadLine()!;
+            Console.WriteLine();
             string[] area = areaInformada.Split(" ");
             int areaX = Convert.ToInt32(area[0]);
             int areaY = Convert.ToInt32(area[1]);
@@ -54,7 +55,7 @@
 
                 if (!posicaoValida)
                 {
-                    Console.WriteLine("Erro, O robô colidiu com a borda!\nTente novamente.\n");
+                    Console.WriteLine("Erro, O robô colidiu com a borda!\n\nTente novamente.\n");
                 }
                 else
                 {
@@ -66,12 +67,14 @@
 
         static bool DesejaGuiarNovamente()
         {
-            Console.Write("Deseja mover os robôs novamente? (S/N) ");
+            Console.Write("\nDeseja mover os robôs novamente? (S/N) ");
             char resposta = Convert.ToChar(Console.ReadLine()!.ToUpper());
+            Console.WriteLine();
             if (resposta != 'S')
             {
                 return false;
             }
+            Console.Clear();
             return true;
         }
 
@@ -100,6 +103,7 @@
         {
             Console.Write("Digite a sequência de movimentos: ");
             char[] movimentos = Console.ReadLine()!.ToUpper().ToCharArray();
+            Console.WriteLine();
             return movimentos;
         }
 
